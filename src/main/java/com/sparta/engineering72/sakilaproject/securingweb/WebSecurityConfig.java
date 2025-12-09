@@ -30,7 +30,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .authorizeRequests()
                 .antMatchers("/customer").hasRole("USER")
-                .antMatchers("/owner").hasRole("ADMIN")
+                .antMatchers("/owner", "/owner/**", "/save", "/add-film", "/edit/**", "/delete/**").hasRole("ADMIN")
                 .antMatchers(
                 "/",
                             "/images/**",
@@ -61,7 +61,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Bean
     public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
+        return org.springframework.security.crypto.factory.PasswordEncoderFactories.createDelegatingPasswordEncoder();
     }
 
     @Bean

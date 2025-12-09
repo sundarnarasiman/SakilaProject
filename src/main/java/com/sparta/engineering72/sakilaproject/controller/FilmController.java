@@ -131,6 +131,19 @@ public class FilmController {
         return "redirect:/owner/manage-films";
     }
 
+    @GetMapping("/add-film")
+    public String showAddFilmPage(ModelMap modelMap) {
+        Film film = new Film();
+        modelMap.addAttribute("film", film);
+        return "/owner/add-film";
+    }
+
+    @RequestMapping("/save")
+    public String saveFilm(Film film) {
+        filmService.save(film);
+        return "redirect:/owner/manage-films";
+    }
+
 
     public Film findFilmByID(Integer id) {
         return filmService.getFilmByID(id);

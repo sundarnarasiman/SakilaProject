@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org"
+      layout:decorator="layout/layout">
+
+<head>
+    <title>Add Film</title>
+</head>
+
+<body>
+
+<div layout:fragment="content">
+    <div align="center">
+        <h1>Add New Film</h1>
+        <br/>
+        <form action="#" th:action="@{/save}" th:object="${film}" method="post">
+            <table border="0" cellpadding="10">
+                <tr>
+                    <td>Title:</td>
+                    <td><input type="text" th:field="*{title}" required /></td>
+                </tr>
+                <tr>
+                    <td>Description:</td>
+                    <td><textarea th:field="*{description}" rows="3" cols="30"></textarea></td>
+                </tr>
+                <tr>
+                    <td>Release Year:</td>
+                    <td><input type="number" th:field="*{releaseYear}" required /></td>
+                </tr>
+                <tr>
+                    <td>Language ID:</td>
+                    <td><input type="number" th:field="*{language.languageId}" required /></td>
+                </tr>
+                <tr>
+                    <td>Rental Duration (days):</td>
+                    <td><input type="number" th:field="*{rentalDuration}" required /></td>
+                </tr>
+                <tr>
+                    <td>Rental Rate:</td>
+                    <td><input type="number" step="0.01" th:field="*{rentalRate}" required /></td>
+                </tr>
+                <tr>
+                    <td>Length (minutes):</td>
+                    <td><input type="number" th:field="*{length}" /></td>
+                </tr>
+                <tr>
+                    <td>Replacement Cost:</td>
+                    <td><input type="number" step="0.01" th:field="*{replacementCost}" required /></td>
+                </tr>
+                <tr>
+                    <td>Rating:</td>
+                    <td>
+                        <select th:field="*{rating}">
+                            <option value="G">G</option>
+                            <option value="PG">PG</option>
+                            <option value="PG-13">PG-13</option>
+                            <option value="R">R</option>
+                            <option value="NC-17">NC-17</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Special Features:</td>
+                    <td><input type="text" th:field="*{specialFeatures}" placeholder="Leave empty or use: Trailers,Commentaries,Deleted Scenes,Behind the Scenes" /></td>
+                </tr>
+                <tr>
+                    <td colspan="2"><button type="submit">Save</button></td>
+                </tr>
+            </table>
+        </form>
+    </div>
+</div>
+
+</body>
+</html>

@@ -54,6 +54,9 @@ public class FilmService {
     }
 
     public void save(Film film) {
+        if (film.getLastUpdate() == null) {
+            film.setLastUpdate(new java.sql.Timestamp(System.currentTimeMillis()));
+        }
         filmRepository.save(film);
     }
 

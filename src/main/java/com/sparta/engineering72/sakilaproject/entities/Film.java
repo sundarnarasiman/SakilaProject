@@ -21,10 +21,10 @@ public class Film {
     private String rating;
     private String specialFeatures;
     private Timestamp lastUpdate;
-    private Integer languageId;
     private Language language;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "film_id")
     public int getFilmId() {
         return filmId;
@@ -134,18 +134,8 @@ public class Film {
         this.lastUpdate = lastUpdate;
     }
 
-    @Basic
-    @Column(name = "language_id", insertable = false, updatable = false)
-    public Integer getLanguageId() {
-        return languageId;
-    }
-
-    public void setLanguageId(Integer languageId) {
-        this.languageId = languageId;
-    }
-
     @ManyToOne
-    @JoinColumn(name = "language_id")
+    @JoinColumn(name = "language_id", nullable = false)
     public Language getLanguage() {
         return language;
     }

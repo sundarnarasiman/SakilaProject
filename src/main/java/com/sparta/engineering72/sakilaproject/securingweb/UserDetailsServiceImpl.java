@@ -33,7 +33,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         } else {
             builder = User.withUsername(anyUsername);
             if(staff != null){
-                builder.password(new BCryptPasswordEncoder().encode((staff.getPassword())));
+                builder.password("{noop}" + staff.getPassword());
                     builder.roles("ADMIN");
             } else {
                 builder.password(new BCryptPasswordEncoder().encode(String.valueOf(customer.getCustomerId())));
