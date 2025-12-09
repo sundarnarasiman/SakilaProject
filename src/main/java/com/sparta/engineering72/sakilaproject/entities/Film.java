@@ -21,6 +21,7 @@ public class Film {
     private String rating;
     private String specialFeatures;
     private Timestamp lastUpdate;
+    private Integer languageId;
 
     @Id
     @Column(name = "film_id")
@@ -130,6 +131,16 @@ public class Film {
 
     public void setLastUpdate(Timestamp lastUpdate) {
         this.lastUpdate = lastUpdate;
+    }
+
+    @Basic
+    @Column(name = "language_id")
+    public Integer getLanguageId() {
+        return languageId;
+    }
+
+    public void setLanguageId(Integer languageId) {
+        this.languageId = languageId;
     }
 
     @Override
