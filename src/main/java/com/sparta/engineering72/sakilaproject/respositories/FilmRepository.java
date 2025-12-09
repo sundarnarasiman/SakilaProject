@@ -27,7 +27,9 @@ public interface FilmRepository extends JpaRepository<Film, Integer> {
             nativeQuery = true)
     List<Film> getAllFilmsByActor(Integer actorId);
 
-    List<Film> findByTitle(String title);
+    @Query(value = "SELECT * FROM film WHERE title LIKE %:title%", nativeQuery = true)
+    List<Film> findByTitleContaining(String title);
+    
     Film getFilmByFilmId(Integer id);
 
 }

@@ -18,10 +18,7 @@
             <tr>
                 <td class="no-border">
                     <label>
-                        <select name="title" class="selection-menu">
-                            <option>ALL FILMS</option>
-                            <option th:each="film: ${allFilms}" th:text="${film.title}">
-                        </select>
+                        <input type="text" name="title" class="selection-menu" placeholder="Search by film title..." th:value="${searchTerm}">
                     </label>
                 </td>
                 <td class="no-border">

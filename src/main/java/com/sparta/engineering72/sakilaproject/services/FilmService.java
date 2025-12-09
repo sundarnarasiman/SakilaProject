@@ -26,7 +26,7 @@ public class FilmService {
     }
 
     public List<Film> getFilmsByTitle(String title){
-        return filmRepository.findByTitle(title);
+        return filmRepository.findByTitleContaining(title);
     }
 
     public List<Film> getAvailableFilms(){

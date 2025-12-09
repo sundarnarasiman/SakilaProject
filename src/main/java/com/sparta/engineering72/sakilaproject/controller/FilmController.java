@@ -47,18 +47,17 @@ public class FilmController {
     }
 
     @GetMapping("/films")
-    public String getFilms(ModelMap modelMap, @RequestParam(value = "title", defaultValue = "ALL FILMS") String filter) {
+    public String getFilms(ModelMap modelMap, @RequestParam(value = "title", defaultValue = "") String filter) {
         List<Film> films;
-        if (filter.equals("ALL FILMS")){
+        if (filter.isEmpty()){
             films = filmService.getAllFilms();
         }
         else {
             films = filmService.getFilmsByTitle(filter);
         }
-//        modelMap.addAttribute("title", filmService.getFilmsByTitle(title));
         modelMap.addAttribute("films", films);
         modelMap.addAttribute("availableFilms", filmService.getAvailableFilms());
-        modelMap.addAttribute("allFilms", filmService.getAllFilms());
+        modelMap.addAttribute("searchTerm", filter);
         return "/films/films";
     }
 
@@ -91,26 +90,25 @@ public class FilmController {
 
     @GetMapping("/owner/manage-films")
     public String getFilmDetails(ModelMap modelMap,
-                                 @RequestParam(value = "title", defaultValue = "ALL FILMS") String filter) {
+                                 @RequestParam(value = "title", defaultValue = "") String filter) {
 
 
         List<Film> films;
-        if (filter.equals("ALL FILMS")){
+        if (filter.isEmpty()){
             films = filmService.getAllFilms();
         }
         else {
             films = filmService.getFilmsByTitle(filter);
         }
 
-        List<Film> allFilms = filmService.getAllFilms();
         HashMap<Integer, Integer> filmCount = new HashMap<>();
-        for(Film film : allFilms){
+        for(Film film : films){
             filmCount.put(film.getFilmId(), filmService.getAvailableFilmCount(film.getFilmId()));
         }
 
         modelMap.addAttribute("films", films);
         modelMap.addAttribute("filmCount", filmCount);
-        modelMap.addAttribute("allFilms", films);
+        modelMap.addAttribute("searchTerm", filter);
         return "/owner/manage-films";
     }
 
