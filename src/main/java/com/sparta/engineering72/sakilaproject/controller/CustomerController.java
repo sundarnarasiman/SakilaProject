@@ -60,21 +60,22 @@ public class CustomerController {
 
     @GetMapping("/owner/customers")
     public String getCustomers(ModelMap modelMap,
-                               @RequestParam(value = "firstName", defaultValue = "ALL CUSTOMERS") String firstNameFilter,
-                               @RequestParam(value = "lastName", defaultValue = "ALL CUSTOMERS") String lastNameFilter) {
+                               @RequestParam(value = "firstName", defaultValue = "") String firstNameFilter,
+                               @RequestParam(value = "lastName", defaultValue = "") String lastNameFilter) {
         List<Customer> customers;
-        if (firstNameFilter.equals("ALL CUSTOMERS") && lastNameFilter.equals("ALL CUSTOMERS")) {
+        if (firstNameFilter.isEmpty() && lastNameFilter.isEmpty()) {
             customers = customerService.getAllCustomers();
-        } else if (lastNameFilter.equals("ALL CUSTOMERS")){
+        } else if (lastNameFilter.isEmpty()){
             customers = customerService.getCustomersByFirstName(firstNameFilter);
-        } else if (firstNameFilter.equals("ALL CUSTOMERS")) {
+        } else if (firstNameFilter.isEmpty()) {
             customers = customerService.getCustomersByLastName(lastNameFilter);
         } else {
             customers = customerService.getCustomersByFullName(firstNameFilter, lastNameFilter);
         }
 
         modelMap.addAttribute("customers", customers);
-        modelMap.addAttribute("allCustomers", customerService.getAllCustomers());
+        modelMap.addAttribute("firstNameSearch", firstNameFilter);
+        modelMap.addAttribute("lastNameSearch", lastNameFilter);
         return "owner/customers";
     }
 

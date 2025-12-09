@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org"
+      layout:decorator="layout/layout">
+
+<head>
+    <title>Edit Customer</title>
+</head>
+
+<body>
+
+<div layout:fragment="content">
+    <div align="center">
+        <h1>Edit Customer</h1>
+        <br/>
+        <form action="#" th:action="@{/admin/save-customer}" th:object="${customer}" method="post">
+            <input type="hidden" th:field="*{customerId}" />
+            <table border="0" cellpadding="10">
+                <tr>
+                    <td>Store ID:</td>
+                    <td><input type="number" th:field="*{storeId}" required /></td>
+                </tr>
+                <tr>
+                    <td>First Name:</td>
+                    <td><input type="text" th:field="*{firstName}" required /></td>
+                </tr>
+                <tr>
+                    <td>Last Name:</td>
+                    <td><input type="text" th:field="*{lastName}" required /></td>
+                </tr>
+                <tr>
+                    <td>Email:</td>
+                    <td><input type="email" th:field="*{email}" required /></td>
+                </tr>
+                <tr>
+                    <td>Address ID:</td>
+                    <td><input type="number" th:field="*{addressId}" required /></td>
+                </tr>
+                <tr>
+                    <td>Active:</td>
+                    <td>
+                        <select th:field="*{active}">
+                            <option value="1">Yes</option>
+                            <option value="0">No</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2"><button type="submit">Update</button></td>
+                </tr>
+            </table>
+        </form>
+    </div>
+</div>
+
+</body>
+</html>

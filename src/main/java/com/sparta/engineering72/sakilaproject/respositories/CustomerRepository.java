@@ -15,15 +15,15 @@ public interface CustomerRepository extends JpaRepository<Customer, Integer> {
             nativeQuery = true)
     Customer getCustomerByUsername(String username);
 
-    @Query(value = "SELECT * FROM customer c WHERE c.first_name = :firstName",
+    @Query(value = "SELECT * FROM customer c WHERE c.first_name LIKE %:firstName%",
             nativeQuery = true)
     List<Customer> getCustomersByFirstName(String firstName);
 
-    @Query(value = "SELECT * FROM customer c WHERE c.last_name = :lastName",
+    @Query(value = "SELECT * FROM customer c WHERE c.last_name LIKE %:lastName%",
             nativeQuery = true)
     List<Customer> getCustomersByLastName(String lastName);
 
-    @Query(value = "SELECT * FROM customer c WHERE c.first_name = :firstName AND c.last_name = :lastName",
+    @Query(value = "SELECT * FROM customer c WHERE c.first_name LIKE %:firstName% AND c.last_name LIKE %:lastName%",
             nativeQuery = true)
     List<Customer> getCustomersByFullName(String firstName, String lastName);
 

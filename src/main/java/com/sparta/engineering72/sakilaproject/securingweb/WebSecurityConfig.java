@@ -30,7 +30,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .authorizeRequests()
                 .antMatchers("/customer").hasRole("USER")
-                .antMatchers("/owner", "/owner/**", "/save", "/add-film", "/edit/**", "/delete/**").hasRole("ADMIN")
+                .antMatchers("/owner", "/owner/**", "/admin", "/admin/**", "/save", "/add-film", "/edit/**", "/delete/**").hasRole("ADMIN")
                 .antMatchers(
                 "/",
                             "/images/**",

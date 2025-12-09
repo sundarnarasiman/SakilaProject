@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org"
+      layout:decorator="layout/layout">
+
+<head>
+    <title>Manage Customers</title>
+</head>
+
+<body>
+
+<div layout:fragment="content">
+    <div align="center">
+        <h1>Manage Customers</h1>
+        <a href="/admin/add-customer" class="button">Add New Customer</a>
+        <br/><br/>
+        <table border="1" cellpadding="10">
+            <thead>
+            <tr>
+                <th>Customer ID</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Email</th>
+                <th>Active</th>
+                <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="customer : ${customers}">
+                <td th:text="${customer.customerId}">Customer ID</td>
+                <td th:text="${customer.firstName}">First Name</td>
+                <td th:text="${customer.lastName}">Last Name</td>
+                <td th:text="${customer.email}">Email</td>
+                <td th:text="${customer.active == 1 ? 'Yes' : 'No'}">Active</td>
+                <td>
+                    <a th:href="@{'/admin/edit-customer/' + ${customer.customerId}}">Edit</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+</body>
+</html>
