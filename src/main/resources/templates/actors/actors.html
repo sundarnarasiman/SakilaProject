@@ -19,16 +19,10 @@
                     <td class="no-border">
                         <label>
                             First Name:
-                            <select name="firstName" class="selection-menu">
-                                <option>ALL ACTORS</option>
-                                <option th:each="actor: ${allActors}" th:text="${actor.firstName}">
-                            </select>
+                            <input type="text" name="firstName" class="selection-menu" placeholder="Search by first name..." th:value="${firstNameSearch}">
 
                             Last Name:
-                            <select name="lastName" class="selection-menu">
-                                <option>ALL ACTORS</option>
-                                <option th:each="actor: ${allActors}" th:text="${actor.lastName}">
-                            </select>
+                            <input type="text" name="lastName" class="selection-menu" placeholder="Search by last name..." th:value="${lastNameSearch}">
                         </label>
                     </td>
                     <td class="no-border">

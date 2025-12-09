@@ -25,20 +25,21 @@ public class ActorController {
 
     @GetMapping("/actors")
     public String getActors(ModelMap modelMap,
-                            @RequestParam(value = "firstName", defaultValue = "ALL ACTORS") String firstNameFilter,
-                            @RequestParam(value = "lastName", defaultValue = "ALL ACTORS") String lastNameFilter) {
+                            @RequestParam(value = "firstName", defaultValue = "") String firstNameFilter,
+                            @RequestParam(value = "lastName", defaultValue = "") String lastNameFilter) {
         List<Actor> actors;
-        if (firstNameFilter.equals("ALL ACTORS") && lastNameFilter.equals("ALL ACTORS")) {
+        if (firstNameFilter.isEmpty() && lastNameFilter.isEmpty()) {
             actors = actorService.getAllActors();
-        } else if (lastNameFilter.equals("ALL ACTORS")){
+        } else if (lastNameFilter.isEmpty()){
             actors = actorService.getActorsByFirstName(firstNameFilter);
-        } else if (firstNameFilter.equals("ALL ACTORS")) {
+        } else if (firstNameFilter.isEmpty()) {
             actors = actorService.getActorsByLastName(lastNameFilter);
         } else {
             actors = actorService.getActorsByFullName(firstNameFilter, lastNameFilter);
         }
         modelMap.addAttribute("actors", actors);
-        modelMap.addAttribute("allActors", actorService.getAllActors());
+        modelMap.addAttribute("firstNameSearch", firstNameFilter);
+        modelMap.addAttribute("lastNameSearch", lastNameFilter);
         return "actors/actors";
     }
 

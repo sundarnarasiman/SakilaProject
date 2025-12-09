@@ -8,8 +8,14 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.List;
 
 public interface ActorRepository extends JpaRepository<Actor, Integer>{
-    List<Actor> findActorsByFirstNameAndLastName(String firstName, String lastName);
-    List<Actor> findActorsByFirstName(String firstName);
-    List<Actor> findActorsByLastName(String lastName);
+    @Query(value = "SELECT * FROM actor WHERE first_name LIKE %:firstName% AND last_name LIKE %:lastName%", nativeQuery = true)
+    List<Actor> findActorsByFirstNameAndLastNameContaining(String firstName, String lastName);
+    
+    @Query(value = "SELECT * FROM actor WHERE first_name LIKE %:firstName%", nativeQuery = true)
+    List<Actor> findActorsByFirstNameContaining(String firstName);
+    
+    @Query(value = "SELECT * FROM actor WHERE last_name LIKE %:lastName%", nativeQuery = true)
+    List<Actor> findActorsByLastNameContaining(String lastName);
+    
     Actor getActorByActorId(Integer id);
 }

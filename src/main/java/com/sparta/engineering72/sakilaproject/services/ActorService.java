@@ -24,15 +24,15 @@ public class ActorService {
     }
 
     public List<Actor> getActorsByFullName(String firstName, String lastName){
-        return actorRepository.findActorsByFirstNameAndLastName(firstName, lastName);
+        return actorRepository.findActorsByFirstNameAndLastNameContaining(firstName, lastName);
     }
 
     public List<Actor> getActorsByFirstName(String firstName){
-        return actorRepository.findActorsByFirstName(firstName);
+        return actorRepository.findActorsByFirstNameContaining(firstName);
     }
 
     public List<Actor> getActorsByLastName(String lastName){
-        return actorRepository.findActorsByLastName(lastName);
+        return actorRepository.findActorsByLastNameContaining(lastName);
     }
 
     public String getActorFullNameFromID(Integer id){
