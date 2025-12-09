@@ -30,6 +30,12 @@ public interface FilmRepository extends JpaRepository<Film, Integer> {
     @Query(value = "SELECT * FROM film WHERE title LIKE %:title%", nativeQuery = true)
     List<Film> findByTitleContaining(String title);
     
+    @Query(value = "SELECT f.* FROM film f JOIN language l ON f.language_id = l.language_id WHERE l.name LIKE %:languageName%", nativeQuery = true)
+    List<Film> findByLanguageName(String languageName);
+    
+    @Query(value = "SELECT f.* FROM film f JOIN language l ON f.language_id = l.language_id WHERE f.title LIKE %:title% AND l.name LIKE %:languageName%", nativeQuery = true)
+    List<Film> findByTitleAndLanguageName(String title, String languageName);
+    
     Film getFilmByFilmId(Integer id);
 
 }

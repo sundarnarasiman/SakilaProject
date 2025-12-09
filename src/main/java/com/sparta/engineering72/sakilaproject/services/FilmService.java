@@ -29,6 +29,14 @@ public class FilmService {
         return filmRepository.findByTitleContaining(title);
     }
 
+    public List<Film> getFilmsByLanguageName(String languageName){
+        return filmRepository.findByLanguageName(languageName);
+    }
+
+    public List<Film> getFilmsByTitleAndLanguage(String title, String languageName){
+        return filmRepository.findByTitleAndLanguageName(title, languageName);
+    }
+
     public List<Film> getAvailableFilms(){
         return filmRepository.getAvailableFilms();
     }

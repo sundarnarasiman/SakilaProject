@@ -37,27 +37,35 @@ public class FilmController {
     private InventoryService inventoryService;
     private RentalService rentalService;
     private CustomerService customerService;
+    private com.sparta.engineering72.sakilaproject.services.LanguageService languageService;
 
     @Autowired
-    public FilmController(FilmService filmService, InventoryService inventoryService, RentalService rentalService, CustomerService customerService) {
+    public FilmController(FilmService filmService, InventoryService inventoryService, RentalService rentalService, CustomerService customerService, com.sparta.engineering72.sakilaproject.services.LanguageService languageService) {
         this.filmService = filmService;
         this.inventoryService = inventoryService;
         this.rentalService = rentalService;
         this.customerService = customerService;
+        this.languageService = languageService;
     }
 
     @GetMapping("/films")
-    public String getFilms(ModelMap modelMap, @RequestParam(value = "title", defaultValue = "") String filter) {
+    public String getFilms(ModelMap modelMap, 
+                          @RequestParam(value = "title", defaultValue = "") String titleFilter,
+                          @RequestParam(value = "language", defaultValue = "") String languageFilter) {
         List<Film> films;
-        if (filter.isEmpty()){
+        if (titleFilter.isEmpty() && languageFilter.isEmpty()){
             films = filmService.getAllFilms();
-        }
-        else {
-            films = filmService.getFilmsByTitle(filter);
+        } else if (languageFilter.isEmpty()){
+            films = filmService.getFilmsByTitle(titleFilter);
+        } else if (titleFilter.isEmpty()){
+            films = filmService.getFilmsByLanguageName(languageFilter);
+        } else {
+            films = filmService.getFilmsByTitleAndLanguage(titleFilter, languageFilter);
         }
         modelMap.addAttribute("films", films);
         modelMap.addAttribute("availableFilms", filmService.getAvailableFilms());
-        modelMap.addAttribute("searchTerm", filter);
+        modelMap.addAttribute("searchTerm", titleFilter);
+        modelMap.addAttribute("languageSearch", languageFilter);
         return "/films/films";
     }
 
