@@ -83,16 +83,12 @@ public class FilmController {
                            @PathVariable("filmid") int filmid){
         String name = principal.getName();
         Customer customer = customerService.getCustomerByEmail(name);
-        List<Inventory> inventoryList = inventoryService.getAllInventory();
-        for (Inventory inventory : inventoryList){
-            if (inventory.getFilmId() == filmid){
-                LocalDateTime returnDate = LocalDateTime.now().plusDays(filmService.getFilmByID(inventory.getFilmId()).getRentalDuration());
-//                inventoryService.deleteInventoryItemById(inventory.getFilmId());
-                rentalService.addRental(inventory.getInventoryId(), customer.getCustomerId(), Timestamp.valueOf(returnDate));
-                break;
-            }
+        List<Inventory> availableInventory = inventoryService.getAvailableInventoryByFilmId(filmid);
+        if (!availableInventory.isEmpty()){
+            Inventory inventory = availableInventory.get(0);
+            LocalDateTime returnDate = LocalDateTime.now().plusDays(filmService.getFilmByID(inventory.getFilmId()).getRentalDuration());
+            rentalService.addRental(inventory.getInventoryId(), customer.getCustomerId(), Timestamp.valueOf(returnDate));
         }
-        modelMap.addAttribute("rent","Rented");
         return "redirect:/films";
     }
 

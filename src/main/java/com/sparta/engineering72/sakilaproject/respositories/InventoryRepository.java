@@ -23,4 +23,8 @@ public interface InventoryRepository extends JpaRepository<Inventory, Integer> {
             nativeQuery = true)
     Integer getInventoryCount();
 
+    @Query(value = "SELECT * FROM inventory i WHERE i.film_id = :filmId AND i.inventory_id NOT IN (SELECT r.inventory_id FROM rental r WHERE r.return_date IS NULL OR r.return_date > NOW())",
+            nativeQuery = true)
+    List<Inventory> getAvailableInventoryByFilmId(Integer filmId);
+
 }

@@ -33,4 +33,8 @@ public class InventoryService {
         return inventoryRepository.getInventoryCount();
     }
 
+    public List<Inventory> getAvailableInventoryByFilmId(Integer filmId){
+        return inventoryRepository.getAvailableInventoryByFilmId(filmId);
+    }
+
 }
