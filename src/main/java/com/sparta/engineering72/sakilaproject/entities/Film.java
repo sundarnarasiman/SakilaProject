@@ -22,6 +22,7 @@ public class Film {
     private String specialFeatures;
     private Timestamp lastUpdate;
     private Integer languageId;
+    private Language language;
 
     @Id
     @Column(name = "film_id")
@@ -134,13 +135,23 @@ public class Film {
     }
 
     @Basic
-    @Column(name = "language_id")
+    @Column(name = "language_id", insertable = false, updatable = false)
     public Integer getLanguageId() {
         return languageId;
     }
 
     public void setLanguageId(Integer languageId) {
         this.languageId = languageId;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "language_id")
+    public Language getLanguage() {
+        return language;
+    }
+
+    public void setLanguage(Language language) {
+        this.language = language;
     }
 
     @Override
